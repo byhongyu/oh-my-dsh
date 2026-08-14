@@ -1,0 +1,21 @@
+version: 2
+
+# Dependabot currently supports pnpm through v10. Runtime dependency updates
+# remain manual while this workspace targets pnpm 11.
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "09:00"
+      timezone: America/Los_Angeles
+    open-pull-requests-limit: 3
+    groups:
+      github-actions:
+        patterns:
+          - "*"
+    commit-message:
+      prefix: ci
+    labels:
+      - dependencies
