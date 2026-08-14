@@ -1,0 +1,6 @@
+dist
+coverage
+node_modules
+.antigravity
+pnpm-lock.yaml
+oh-my-dsh-technical-design.md

@@ -1,0 +1,19 @@
+{
+  "name": "@oh-my-dsh/core",
+  "version": "0.1.0",
+  "type": "module",
+  "exports": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -b",
+    "typecheck": "tsc -b --pretty false"
+  },
+  "dependencies": {
+    "@oh-my-dsh/catalog": "workspace:*",
+    "@oh-my-dsh/schema": "workspace:*",
+    "yaml": "^2.8.0"
+  }
+}

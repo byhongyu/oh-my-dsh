@@ -1,0 +1,11 @@
+node_modules/
+dist/
+coverage/
+.pnpm-store/
+.antigravity/
+*.tsbuildinfo
+.DS_Store
+*.omdsh-agent
+.env
+.env.*
+!.env.example

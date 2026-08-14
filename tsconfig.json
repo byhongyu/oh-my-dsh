@@ -1,0 +1,10 @@
+{
+  "files": [],
+  "references": [
+    { "path": "./packages/schema" },
+    { "path": "./packages/catalog" },
+    { "path": "./packages/core" },
+    { "path": "./packages/adapter-dsh-rc5" },
+    { "path": "./packages/cli" }
+  ]
+}

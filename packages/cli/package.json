@@ -1,0 +1,30 @@
+{
+  "name": "oh-my-dsh",
+  "version": "0.1.0",
+  "description": "Curated agent setups for DeepSeek Harness",
+  "type": "module",
+  "bin": {
+    "oh-my-dsh": "./dist/bin.cjs"
+  },
+  "files": [
+    "dist/bin.cjs",
+    "README.md",
+    "LICENSE",
+    "THIRD_PARTY_NOTICES.md"
+  ],
+  "scripts": {
+    "build": "tsc -b && esbuild src/bin.ts --bundle --platform=node --target=node24 --format=cjs --outfile=dist/bin.cjs",
+    "bundle": "esbuild src/bin.ts --bundle --platform=node --target=node24 --format=cjs --outfile=dist/bin.cjs",
+    "prepack": "tsc -b && esbuild src/bin.ts --bundle --platform=node --target=node24 --format=cjs --outfile=dist/bin.cjs",
+    "typecheck": "tsc -b --pretty false"
+  },
+  "devDependencies": {
+    "@oh-my-dsh/adapter-dsh-rc5": "workspace:*",
+    "@oh-my-dsh/catalog": "workspace:*",
+    "@oh-my-dsh/core": "workspace:*",
+    "@oh-my-dsh/schema": "workspace:*"
+  },
+  "engines": {
+    "node": ">=24"
+  }
+}
