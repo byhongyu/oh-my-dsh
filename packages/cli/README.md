@@ -2,11 +2,25 @@
 
 Curated Coding, Research, and Investing Agent Setups for DeepSeek Harness.
 
+Try the v0.1.0 GitHub release without installing it:
+
 ```bash
-pnpm dlx oh-my-dsh init
+npx --yes --package \
+  https://github.com/byhongyu/oh-my-dsh/releases/download/v0.1.0/oh-my-dsh-0.1.0.tgz \
+  oh-my-dsh list
+```
+
+Install and initialize:
+
+```bash
+npm install --global \
+  https://github.com/byhongyu/oh-my-dsh/releases/download/v0.1.0/oh-my-dsh-0.1.0.tgz
+
+oh-my-dsh init
 oh-my-dsh list
 oh-my-dsh plan coding
 oh-my-dsh use research --default
+oh-my-dsh doctor
 ```
 
 Fork and share a setup:
