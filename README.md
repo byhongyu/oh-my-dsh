@@ -2,6 +2,14 @@
 
 Curated agents for real work. Switch in seconds. Make them yours. Share them anywhere.
 
+<p align="center">
+  <a href="docs/assets/oh-my-dsh-demo.mp4">
+    <img src="docs/assets/oh-my-dsh-demo.gif" width="960" alt="A 15-second terminal demo of listing oh-my-dsh setups, switching from Coding to Research, and forking Investing into a custom setup." />
+  </a>
+</p>
+
+<p align="center"><sub>Discover → switch → fork. Click the demo for the full-quality MP4.</sub></p>
+
 `oh-my-dsh` is an independent, opinionated Agent Setup layer for [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness). It installs three deliberately different setups:
 
 - **Coding** — inspect, change, test, and review a repository with bounded workspace authority.
