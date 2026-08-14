@@ -1,7 +1,26 @@
 {
   "name": "oh-my-dsh",
   "version": "0.1.0",
-  "description": "Curated agent setups for DeepSeek Harness",
+  "description": "Curated agent presets for DeepSeek Harness (dsh)",
+  "keywords": [
+    "agent-presets",
+    "ai-agents",
+    "deepseek",
+    "deepseek-harness",
+    "developer-tools",
+    "dsh",
+    "dsh-plugin"
+  ],
+  "homepage": "https://github.com/byhongyu/oh-my-dsh#readme",
+  "bugs": {
+    "url": "https://github.com/byhongyu/oh-my-dsh/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/byhongyu/oh-my-dsh.git",
+    "directory": "packages/cli"
+  },
+  "license": "MIT",
   "type": "module",
   "bin": {
     "oh-my-dsh": "./dist/bin.cjs"

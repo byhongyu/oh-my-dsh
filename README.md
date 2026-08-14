@@ -1,6 +1,14 @@
 # oh-my-dsh
 
-Curated agents for real work. Switch in seconds. Make them yours. Share them anywhere.
+<p align="center"><strong>Curated agent presets for DeepSeek Harness.</strong><br />Discover, switch, fork, and share focused agents without hand-editing DSH configuration.</p>
+
+<p align="center">
+  <a href="https://github.com/byhongyu/oh-my-dsh/actions/workflows/ci.yml"><img src="https://github.com/byhongyu/oh-my-dsh/actions/workflows/ci.yml/badge.svg" alt="CI status" /></a>
+  <a href="https://github.com/byhongyu/oh-my-dsh/releases/latest"><img src="https://img.shields.io/github/v/release/byhongyu/oh-my-dsh" alt="Latest GitHub release" /></a>
+  <a href="LICENSE"><img src="https://img.shields.io/github/license/byhongyu/oh-my-dsh" alt="MIT license" /></a>
+  <img src="https://img.shields.io/badge/Node.js-%E2%89%A524-339933" alt="Node.js 24 or newer" />
+  <img src="https://img.shields.io/badge/DSH-rc.5%20%7C%20rc.6-6d5dfc" alt="DeepSeek Harness rc.5 and rc.6" />
+</p>
 
 <p align="center">
   <a href="docs/assets/oh-my-dsh-demo.mp4">
@@ -10,39 +18,100 @@ Curated agents for real work. Switch in seconds. Make them yours. Share them any
 
 <p align="center"><sub>Discover → switch → fork. Click the demo for the full-quality MP4.</sub></p>
 
-`oh-my-dsh` is an independent, opinionated Agent Setup layer for [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness). It installs three deliberately different setups:
+`oh-my-dsh` is an independent Agent Setup layer for [DeepSeek Harness (`dsh`)](https://github.com/deepseek-ai/deepseek-harness). Install three opinionated agents once, switch new sessions in seconds, and keep every change inspectable and reversible.
 
-- **Coding** — inspect, change, test, and review a repository with bounded workspace authority.
-- **Research** — source-grounded research with citations, evidence quality, and uncertainty.
-- **Investing** — company and thesis analysis with scenarios, risks, and no trade execution.
+## Quick start
 
-It does not replace DSH, the oh-dsh Desktop shell, providers, sessions, or plugin marketplaces.
+Requires Node.js 24 or newer. The current adapter targets DSH `0.1.0-rc.5` and `0.1.0-rc.6`.
 
-## Status
-
-This repository targets DSH `0.1.0-rc.5/rc.6` through the `dsh-rc5` adapter. DSH is a developer preview and may make compatibility-breaking changes.
-
-The adapter emits only capabilities verified in the stock target releases. Stock DSH supports web search but not arbitrary URL fetch, browser automation, PDF extraction, spreadsheets, or market-data readers. Research and Investing plans report those semantic capabilities as unavailable until separately audited host plugins are present; they never silently claim those tools are enforced.
-
-## Development
-
-Requirements: Node.js 24+ and pnpm 11.
+Try the public release without installing it:
 
 ```bash
-pnpm install
-pnpm build
-pnpm test
-pnpm test:coverage
+npx --yes --package \
+  https://github.com/byhongyu/oh-my-dsh/releases/download/v0.1.0/oh-my-dsh-0.1.0.tgz \
+  oh-my-dsh list
 ```
 
-Run the workspace CLI:
+Install and initialize the curated setups:
 
 ```bash
-node packages/cli/dist/bin.cjs list
-node packages/cli/dist/bin.cjs plan coding
+npm install --global \
+  https://github.com/byhongyu/oh-my-dsh/releases/download/v0.1.0/oh-my-dsh-0.1.0.tgz
+
+oh-my-dsh init
+oh-my-dsh use research --default
+oh-my-dsh doctor
 ```
 
-## CLI surface
+`init` publishes Coding, Research, and Investing atomically. Changing the default affects new sessions only; existing sessions keep their original setup.
+
+## Why oh-my-dsh?
+
+DeepSeek Harness provides the plugin runtime. `oh-my-dsh` adds a versioned, security-conscious preset layer for repeatable agent behavior.
+
+| Goal      | Command                                               | What you get                                                                 |
+| --------- | ----------------------------------------------------- | ---------------------------------------------------------------------------- |
+| Discover  | `oh-my-dsh list`                                      | A small, maintained catalog instead of an unbounded marketplace              |
+| Inspect   | `oh-my-dsh plan coding`                               | Files, permissions, workflows, warnings, and normalized hash before mutation |
+| Switch    | `oh-my-dsh use research --default`                    | A new default without rewriting existing sessions                            |
+| Customize | `oh-my-dsh agent fork investing --as my-investing`    | A minimal local override that preserves its parent identity                  |
+| Share     | `agent export`, `agent import`, or pinned Git sources | Portable setups with validation, locks, and provenance                       |
+| Recover   | `oh-my-dsh rollback` and `oh-my-dsh doctor`           | Atomic generations, integrity checks, and a bootable previous state          |
+
+## Built-in agent setups
+
+| Setup         | Designed for                                                   | Policy posture                                                          |
+| ------------- | -------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| **Coding**    | Inspecting, changing, testing, and reviewing a repository      | Workspace writes, shell access, network by approval                     |
+| **Research**  | Source-grounded research with evidence quality and uncertainty | No secrets or data export; unavailable host tools are reported honestly |
+| **Investing** | Company, filing, valuation-scenario, and thesis-risk analysis  | Brokerage, trading, secrets, and data export denied                     |
+
+The catalog stays deliberately small. Each setup selects a distinct workflow and capability subset rather than presenting the same general-purpose agent under a different prompt.
+
+## Make a setup yours
+
+Fork a built-in, edit its generated `agent.yaml`, validate and lock it, then export a portable archive:
+
+```bash
+oh-my-dsh agent fork investing --as my-investing
+oh-my-dsh agent save my-investing
+oh-my-dsh agent export my-investing
+```
+
+Import a reviewed archive or pin a setup to an exact Git commit:
+
+```bash
+oh-my-dsh agent import my-investing-0.1.0.omdsh-agent --yes
+oh-my-dsh agent add github:owner/repo/path --rev <full-commit-sha>
+oh-my-dsh apply
+```
+
+## Safety and portability
+
+- Plans, imports, and Git-source inspection parse data without loading third-party plugin modules.
+- Archives reject traversal, links, nested archives, executables, credentials, absolute machine paths, and integrity mismatches.
+- Git sources require an exact commit, isolated Git configuration, bounded archives, portable paths, and content locks.
+- Setup resolution rejects permission/tool contradictions and never permits setup-level data export.
+- DSH publication uses locked, checksummed generations with rollback and interrupted-operation recovery.
+- `oh-my-dsh` emits no telemetry and does not handle provider credentials.
+
+Agent presets ultimately have the authority of the DSH plugins they load. A DSH `user` trust marker is descriptive, not a sandbox, and setup selection does not create operating-system isolation. See the [architecture](docs/architecture.md) and [threat model](docs/threat-model.md).
+
+## How it works
+
+```mermaid
+flowchart LR
+  Catalog["Built-in catalog"] --> Core["Resolver + policy"]
+  Custom["Forks · archives · pinned Git"] --> Core
+  Core --> Plan["Lock + semantic plan"]
+  Plan --> Adapter["Versioned DSH adapter"]
+  Adapter --> Generation["Atomic, checksummed generation"]
+  Generation --> Session["New DSH session"]
+```
+
+No network resolution, package installation, or host restart occurs when starting a session.
+
+## CLI reference
 
 ```text
 oh-my-dsh init
@@ -61,27 +130,46 @@ oh-my-dsh agent import file.omdsh-agent --yes
 oh-my-dsh agent add github:owner/repo/path --rev <full-commit-sha>
 ```
 
-Use `--dsh-home <path>` to target an isolated home during testing. Production otherwise uses `$DSH_HOME`, then `~/.dsh`.
+Use `--dsh-home <path>` for an isolated home during testing. Production otherwise uses `$DSH_HOME`, then `~/.dsh`.
 
-## Trust boundary
+## Status and roadmap
 
-- Plans, imports, and Git-source inspection parse data without loading third-party plugin modules.
-- User presets are still DSH compositions and ultimately have the authority of their loaded plugins. DSH's `user` trust marker is descriptive, not a sandbox.
-- oh-my-dsh emits no telemetry and does not handle provider credentials.
-- A setup selects exposed tools and workflows; it does not create OS/process isolation.
-- Existing sessions keep the setup generation with which they started.
+This repository is a developer preview. DSH is iterating rapidly and may make compatibility-breaking changes. The adapter emits only capabilities verified in stock rc.5/rc.6; unavailable document, spreadsheet, citation-capture, and market-data capabilities remain explicit warnings rather than silent claims.
 
-See [Architecture](docs/architecture.md) and [Threat model](docs/threat-model.md).
+See the [roadmap](ROADMAP.md) for the planned second adapter, fork reconciliation, curated community channel, provenance work, and stable v1 schemas.
 
-## Contributing and security
+## Development
 
-Contributions are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for the development workflow and pull request requirements.
+Requirements: Node.js 24 or newer and pnpm 11.
 
-Report suspected vulnerabilities through [GitHub private vulnerability reporting](https://github.com/byhongyu/oh-my-dsh/security/advisories/new), not a public issue. See [SECURITY.md](SECURITY.md) for the supported-version and disclosure policy.
+```bash
+pnpm install --frozen-lockfile
+pnpm format:check
+pnpm lint
+pnpm typecheck
+pnpm test:coverage
+pnpm build
+```
+
+Run the workspace CLI:
+
+```bash
+node packages/cli/dist/bin.cjs list
+node packages/cli/dist/bin.cjs plan coding
+```
+
+## Community
+
+- Ask questions, share setups, and propose ideas in [Discussions](https://github.com/byhongyu/oh-my-dsh/discussions).
+- Report reproducible bugs or request focused features through [Issues](https://github.com/byhongyu/oh-my-dsh/issues).
+- Read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request.
+- Report suspected vulnerabilities through [private vulnerability reporting](https://github.com/byhongyu/oh-my-dsh/security/advisories/new), not a public issue.
+
+If `oh-my-dsh` makes your DSH workflow easier, starring the repository helps other DSH users discover it.
 
 ## Independence and naming
 
-This project is independent and is not affiliated with or endorsed by DeepSeek AI, oh-my-zsh, or Oh-DSH-Desktop contributors. It uses no upstream logos or trade dress. Public release remains subject to a separate name/trademark clearance review.
+This project is independent and is not affiliated with or endorsed by DeepSeek AI, oh-my-zsh, or Oh-DSH-Desktop contributors. It uses no upstream logos or trade dress. The project name or positioning may be revised if future clearance requires it.
 
 ## License
 
