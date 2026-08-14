@@ -73,6 +73,12 @@ Use `--dsh-home <path>` to target an isolated home during testing. Production ot
 
 See [Architecture](docs/architecture.md) and [Threat model](docs/threat-model.md).
 
+## Contributing and security
+
+Contributions are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for the development workflow and pull request requirements.
+
+Report suspected vulnerabilities through [GitHub private vulnerability reporting](https://github.com/byhongyu/oh-my-dsh/security/advisories/new), not a public issue. See [SECURITY.md](SECURITY.md) for the supported-version and disclosure policy.
+
 ## Independence and naming
 
 This project is independent and is not affiliated with or endorsed by DeepSeek AI, oh-my-zsh, or Oh-DSH-Desktop contributors. It uses no upstream logos or trade dress. Public release remains subject to a separate name/trademark clearance review.
